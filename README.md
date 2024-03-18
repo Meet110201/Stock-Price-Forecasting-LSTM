@@ -37,7 +37,7 @@ The repository is organized as follows:
 3. Install the required dependencies:
 
     ```bash
-    pip install -r requirements.txt
+    pip install -r requirement.txt
     ```
 
 4. Explore the project components and run the `stock_app.py` file to launch the interactive dashboard.
