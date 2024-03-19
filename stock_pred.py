@@ -226,7 +226,7 @@ valid_data=new_dataset[train_size:]
 valid_data['Predictions'] = closing_price
 
 # valid_data.to_csv(f"data/lstm_predictions_{timestpp}.csv")
-valid_data.to_csv("data/lstm_predections.csv")
+valid_data.to_csv("data/lstm_predictions.csv")
 
 # %% [markdown]
 # Model Summary
