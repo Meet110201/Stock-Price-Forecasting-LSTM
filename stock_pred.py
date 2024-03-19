@@ -49,6 +49,7 @@ def save_plot(figure, title, epochss, batch, pat,timestp):
     except Exception as e:
         print("Error in saving plot", str(e))
         return False
+
 # timestamp fun
 def timestmp():
     timestp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
@@ -172,7 +173,7 @@ x_test_data = np.reshape(x_test_data, (x_test_data.shape[0], x_test_data.shape[1
 # MODEL STRUCTURE
 unit = 50
 patience = 20
-epoch = 50
+epoch = 10
 batchsize = 64
 
 lstm_model=Sequential()
@@ -208,7 +209,7 @@ test_data=new_dataset[train_size-valid_size:train_size]
 valid_data=new_dataset[train_size:]
 valid_data['Predictions'] = closing_price
 
-valid_data.to_csv(f"data/lstm_predictions_{timestpp}.csv")
+# valid_data.to_csv(f"data/lstm_predictions_{timestpp}.csv")
 valid_data.to_csv("data/lstm_predections.csv")
 
 # %% [markdown]
@@ -286,13 +287,13 @@ plt.legend(fontsize=14)
 plt.grid(True)
 plt.tight_layout()
 plot_title = "Comparision of Actual and Predicted Values"
-saved = save_plot(plt.gcf(),plot_title,epoch,batchsize,patience,timestpp)
+# saved = save_plot(plt.gcf(),plot_title,epoch,batchsize,patience,timestpp)
 plt.show()
 
-if saved:
-    print(f"Plot saved_{plot_title}")
-else:
-    print("Error : Plot not saved")
+# if saved:
+#     print(f"Plot saved_{plot_title}")
+# else:
+#     print("Error : Plot not saved")
 
 
 plt.figure(figsize=(16,8),dpi=dpi)
@@ -315,13 +316,13 @@ plt.legend(fontsize=14)
 plt.grid(True)
 plt.tight_layout()
 plot_title = "Stock Price Prediction"
-saved = save_plot(plt.gcf(),plot_title,epoch,batchsize,patience,timestpp)
+# saved = save_plot(plt.gcf(),plot_title,epoch,batchsize,patience,timestpp)
 plt.show()
 
-if saved:
-    print(f"Plot saved_{plot_title}")
-else:
-    print("Error : Plot not saved")
+# if saved:
+#     print(f"Plot saved_{plot_title}")
+# else:
+#     print("Error : Plot not saved")
 
 # %% [markdown]
 # Updating Excel File (model_perfornmace.xlsx)
