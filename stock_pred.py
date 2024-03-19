@@ -50,6 +50,20 @@ def save_plot(figure, title, epochss, batch, pat,timestp):
         print("Error in saving plot", str(e))
         return False
 
+def save_plot_no_timestamp(figure, title):
+    try:
+        folder_path = "plots"
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        
+        filename = os.path.join(folder_path, f"{title}.png")
+        figure.savefig(filename)
+        plt.close(figure)
+        return True
+    except Exception as e:
+        print("Error in saving plot", str(e))
+        return False
+
 # timestamp fun
 def timestmp():
     timestp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
@@ -68,6 +82,12 @@ if __name__ == "__main__":
 # %%
 # LOADING THE CSV FILE
 df=pd.read_csv("data/TATACONSUM.NS_historical_data.csv")
+
+# %%
+# changing the index to Date
+df["Date"]=pd.to_datetime(df.Date,format="%Y-%m-%d")
+df.index=df["Date"]
+
 # %% [markdown]
 # DATA OVERVIEW
 
@@ -92,10 +112,6 @@ fig.suptitle('Stock Price Variations', fontsize=26)
 plt.tight_layout()
 plt.show()
 
-# %%
-# changing the index to Date
-df["Date"]=pd.to_datetime(df.Date,format="%Y-%m-%d")
-df.index=df["Date"]
 
 # %%
 # data sorting 
@@ -235,11 +251,28 @@ r2 = r2_score(valid_data["Close"], valid_data["Predictions"])
 print("r-squared_score",r2)
 
 # %% [markdown]
-## GRAPH PLOTING
+## GRAPH SAVING
 
 # %%
 # ploting the outputs
 dpi = 600
+
+
+# plt.figure(figsize=(16,8),dpi=dpi)
+
+# plt.plot(train_data.index, train_data["Close"],
+#          label="Training Data",
+#          color="#0055b2")
+# plt.plot(test_data.index, test_data['Close'],
+#          label='Validation Data',
+#          color='DarkOrange')
+# plt.xlabel('Date', fontsize=18)
+# plt.ylabel('Closing Price', fontsize=18)
+# plt.title('Training and Validation Stock Data', fontsize=26)
+# plt.legend(fontsize=14)
+# plt.grid(True)
+# plt.tight_layout()
+# plt.show()
 
 
 plt.figure(figsize=(16,8),dpi=dpi)
@@ -250,13 +283,25 @@ plt.plot(train_data.index, train_data["Close"],
 plt.plot(test_data.index, test_data['Close'],
          label='Validation Data',
          color='DarkOrange')
+plt.plot(valid_data.index, valid_data['Close'],
+         label="Test Data",
+         color="Green")
 plt.xlabel('Date', fontsize=18)
 plt.ylabel('Closing Price', fontsize=18)
-plt.title('Training and Validation Stock Data', fontsize=26)
+plt.title('Stock Price Data Split', fontsize=26)
 plt.legend(fontsize=14)
 plt.grid(True)
 plt.tight_layout()
+plot_title = "Stock Price Data Split"
+saved_no_timestamp = save_plot_no_timestamp(plt.gcf(),plot_title)
 plt.show()
+
+if saved_no_timestamp:
+    print(f"Plot saved_{plot_title}")
+else:
+    print("Error : Plot not saved")
+
+
 
 plt.figure(figsize=(16,8),dpi=dpi)
 
@@ -269,7 +314,16 @@ plt.title('Actual Close Prices', fontsize=26)
 plt.legend(fontsize=14)
 plt.grid(True)
 plt.tight_layout()
+plot_title = "Actual Stock Data - pred"
+saved_no_timestamp = save_plot_no_timestamp(plt.gcf(),plot_title)
 plt.show()
+
+
+if saved_no_timestamp:
+    print(f"Plot saved_{plot_title}")
+else:
+    print("Error : Plot not saved")
+
 
 dpi = 600
 
@@ -288,12 +342,13 @@ plt.grid(True)
 plt.tight_layout()
 plot_title = "Comparision of Actual and Predicted Values"
 # saved = save_plot(plt.gcf(),plot_title,epoch,batchsize,patience,timestpp)
+saved_no_timestamp = save_plot_no_timestamp(plt.gcf(),plot_title)
 plt.show()
 
-# if saved:
-#     print(f"Plot saved_{plot_title}")
-# else:
-#     print("Error : Plot not saved")
+if saved_no_timestamp:
+    print(f"Plot saved_{plot_title}")
+else:
+    print("Error : Plot not saved")
 
 
 plt.figure(figsize=(16,8),dpi=dpi)
@@ -317,12 +372,13 @@ plt.grid(True)
 plt.tight_layout()
 plot_title = "Stock Price Prediction"
 # saved = save_plot(plt.gcf(),plot_title,epoch,batchsize,patience,timestpp)
+saved_no_timestamp = save_plot_no_timestamp(plt.gcf(),plot_title)
 plt.show()
 
-# if saved:
-#     print(f"Plot saved_{plot_title}")
-# else:
-#     print("Error : Plot not saved")
+if saved_no_timestamp:
+    print(f"Plot saved_{plot_title}")
+else:
+    print("Error : Plot not saved")
 
 # %% [markdown]
 # Updating Excel File (model_perfornmace.xlsx)
