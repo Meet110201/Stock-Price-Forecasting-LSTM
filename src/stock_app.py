@@ -1,9 +1,9 @@
 # %% [markdown]
-##  LOADING stock_pred.py
-# stock_pred.py
+##  LOADING app_data.py
+# app_data.py
 
 # %%
-import stock_pred
+import app_data
 
 # %% [markdown]
 ## LOADING PYTHON LIBRARIES
@@ -60,10 +60,10 @@ recent_data['Date'] = recent_data.index
 
 # %%
 regression_metrics = {
-    'MAE': stock_pred.mae,
-    'MSE': stock_pred.mse,
-    'RMSE': stock_pred.rmse,
-    'R2': stock_pred.r2
+    'MAE': app_data.mae,
+    'MSE': app_data.mse,
+    'RMSE': app_data.rmse,
+    'R2': app_data.r2
 }
 
 # %% [markdown]
@@ -94,14 +94,14 @@ app.layout = html.Div([
 					figure={
 						"data":[
 							go.Scatter(
-								x=stock_pred.train_data.index,
-								y=stock_pred.train_data["Close"],
+								x=app_data.train_data.index,
+								y=app_data.train_data["Close"],
 								mode='lines',
                                 name='Training Data'
 							),
                             go.Scatter(
-                                x=stock_pred.test_data.index,
-                                y=stock_pred.test_data["Close"],
+                                x=app_data.test_data.index,
+                                y=app_data.test_data["Close"],
                                 mode='lines',
                                 name='Validation Data'
                             )
@@ -387,3 +387,5 @@ def update_output(selected_values):
 if __name__ == '__main__':
     app.run_server(debug=True, use_reloader=False)
 
+
+# %%
