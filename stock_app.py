@@ -11,7 +11,6 @@ import app_data
 # %%
 # python Libraries
 import pandas as pd
-import numpy as np
 
 
 # dash Libraries
