@@ -257,7 +257,6 @@ print("r-squared_score",r2)
 # ploting the outputs
 dpi = 600
 
-
 # plt.figure(figsize=(16,8),dpi=dpi)
 
 # plt.plot(train_data.index, train_data["Close"],
